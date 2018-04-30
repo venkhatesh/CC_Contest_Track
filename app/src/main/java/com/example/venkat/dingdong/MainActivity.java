@@ -1,5 +1,6 @@
 package com.example.venkat.dingdong;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
@@ -10,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,11 +35,14 @@ public class MainActivity extends AppCompatActivity implements CurrentContest.On
     android.support.v7.widget.Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-
+    DataBase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DataBase(this);
+
         String url = "https://www.codechef.com/contests";
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -46,6 +52,22 @@ public class MainActivity extends AppCompatActivity implements CurrentContest.On
         tabLayout.setupWithViewPager(viewPager);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.action_favorite){
+            Intent intent = new Intent(this,Favourite.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void SetUpViewPager(ViewPager viewPager){

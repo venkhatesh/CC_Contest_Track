@@ -1,13 +1,21 @@
 package com.example.venkat.dingdong;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by venkat on 24/4/18.
@@ -15,7 +23,7 @@ import java.util.List;
 
 public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.MyViewHolder>{
     List<ContestInfo> contestlist;
-
+    DataBase db;
     public ContestAdapter(List<ContestInfo> contestlist) {
         this.contestlist = contestlist;
     }
@@ -51,8 +59,9 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.MyViewHo
         return contestlist.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView contest_name,start_date,end_date,start_time,end_time;
+        ImageView fav,alert;
         public MyViewHolder(View itemView) {
             super(itemView);
             contest_name = (TextView)itemView.findViewById(R.id.contest_name);
@@ -60,6 +69,29 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.MyViewHo
             end_date = (TextView)itemView.findViewById(R.id.end_date);
             start_time = (TextView)itemView.findViewById(R.id.start_time);
             end_time = (TextView)itemView.findViewById(R.id.end_time);
+            fav = (ImageView)itemView.findViewById(R.id.fav);
+            alert = (ImageView)itemView.findViewById(R.id.alert);
+
+            fav.setOnClickListener(this);
+            alert.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(v.getId()==R.id.fav){
+                db = new DataBase(v.getContext());
+              //  Toast.makeText(v.getContext(),contest_name.getText().toString(),Toast.LENGTH_LONG).show();
+                db.BookMark(contest_name.getText().toString(),start_date.getText().toString(),
+                       end_date.getText().toString());
+                Toast.makeText(v.getContext(),"Hello!! Sucessfully added to database",Toast.LENGTH_LONG).show();
+
+            }
+            else if(v.getId()==R.id.alert){
+               // SQLiteDatabase mydatabase = SQLiteDatabase.openDatabase("Bookmark.db", null, 1);
+                db = new DataBase(v.getContext());
+                ArrayList<String> hl = db.getAllContest();
+                Toast.makeText(v.getContext(),hl.toString(),Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

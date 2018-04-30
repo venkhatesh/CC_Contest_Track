@@ -104,6 +104,25 @@
                     android:gravity="center_horizontal"
                     android:id="@+id/end_time"/>
             </LinearLayout>
+            <LinearLayout
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/li_id3"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_favorite_black_24dp"/>
+                <ImageView
+                    android:id="@+id/alert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_add_alert_black_24dp"/>
+            </LinearLayout>
             <!--</LinearLayout>-->
         </RelativeLayout>
     </android.support.v7.widget.CardView>
