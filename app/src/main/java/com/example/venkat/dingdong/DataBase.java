@@ -46,16 +46,18 @@ public class DataBase extends SQLiteOpenHelper {
         db.insert("Favourite",null,contentValues);
     }
 
-    public ArrayList<String> getAllContest(){
+    public ArrayList<ContestInfo> getAllContest(){
         ArrayList<String> array_list = new ArrayList<String>();
+        ArrayList<ContestInfo> al = new ArrayList<ContestInfo>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from Favourite",null);
         res.moveToFirst();
         while(res.isAfterLast()==false){
            // array_list.add(res.getString(res.getColumnIndex(TABLE_NAME)));
             array_list.add(res.getString(0));
+            al.add(new ContestInfo(res.getString(0),res.getString(1),res.getString(2)));
             res.moveToNext();
         }
-        return array_list;
+        return al;
     }
 }

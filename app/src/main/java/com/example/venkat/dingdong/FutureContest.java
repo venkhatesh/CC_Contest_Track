@@ -116,7 +116,7 @@ public class FutureContest extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             recyclerView = (RecyclerView)getActivity().findViewById(R.id.future_recycler);
-            contestAdapter = new ContestAdapter(contestlist);
+            contestAdapter = new ContestAdapter(contestlist,getActivity());
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(layoutManager);

@@ -23,35 +23,56 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.MyViewHolder>{
     List<ContestInfo> contestlist;
+    Context context;
     DataBase db;
-    public ContestAdapter(List<ContestInfo> contestlist) {
+
+
+    public ContestAdapter(List<ContestInfo> contestlist, Context context) {
         this.contestlist = contestlist;
+        this.context = context;
+
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.contest_list, parent, false);
+        View itemView;
+        if(this.context instanceof Favourite){
+           itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.favourite_list, parent, false);
+        }
+        else {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.contest_list, parent, false);
+        }
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
-        ContestInfo contestInfo = contestlist.get(position);
-        String s_d = contestInfo.getStartDate();
-        String e_d = contestInfo.getEndDate();
-        String[] arr_sd = s_d.split(" ");
-        String[] arr_ed = e_d.split(" ");
-        String start_Date = arr_sd[0] + " " + arr_sd[1] + " " + arr_sd[2];
-        String start_Time = arr_sd[3];
-        String end_Time = arr_ed[3];
-        String end_Date = arr_ed[0] + " " + arr_ed[1] + " " + arr_ed[2];
-        holder.contest_name.setText(contestInfo.getContestName());
-        holder.start_date.setText(start_Date);
-        holder.end_date.setText(end_Date);
-        holder.start_time.setText(start_Time);
-        holder.end_time.setText(end_Time);
+        if (this.context instanceof Favourite){
+            ContestInfo contestInfo = contestlist.get(position);
+            String s_d = contestInfo.getStartDate();
+            String e_d = contestInfo.getEndDate();
+            holder.fav_name.setText(contestInfo.getContestName());
+            holder.fav_sd.setText(s_d);
+            holder.fav_ed.setText(e_d);
+        }
+        else {
+            ContestInfo contestInfo = contestlist.get(position);
+            String s_d = contestInfo.getStartDate();
+            String e_d = contestInfo.getEndDate();
+            String[] arr_sd = s_d.split(" ");
+            String[] arr_ed = e_d.split(" ");
+            String start_Date = arr_sd[0] + " " + arr_sd[1] + " " + arr_sd[2];
+            String start_Time = arr_sd[3];
+            String end_Time = arr_ed[3];
+            String end_Date = arr_ed[0] + " " + arr_ed[1] + " " + arr_ed[2];
+            holder.contest_name.setText(contestInfo.getContestName());
+            holder.start_date.setText(start_Date);
+            holder.end_date.setText(end_Date);
+            holder.start_time.setText(start_Time);
+            holder.end_time.setText(end_Time);
+        }
     }
 
     @Override
@@ -60,7 +81,7 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView contest_name,start_date,end_date,start_time,end_time;
+        TextView contest_name,start_date,end_date,start_time,end_time,fav_name,fav_sd,fav_ed;
         ImageView fav,alert;
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -72,8 +93,14 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.MyViewHo
             fav = (ImageView)itemView.findViewById(R.id.fav);
             alert = (ImageView)itemView.findViewById(R.id.alert);
 
-            fav.setOnClickListener(this);
-            alert.setOnClickListener(this);
+            fav_name = (TextView)itemView.findViewById(R.id.fav_name);
+            fav_sd = (TextView)itemView.findViewById(R.id.fav_sd);
+            fav_ed = (TextView)itemView.findViewById(R.id.fav_ed);
+
+            if(!(itemView.getContext() instanceof Favourite)) {
+                fav.setOnClickListener(this);
+                alert.setOnClickListener(this);
+            }
         }
 
         @Override
@@ -89,8 +116,8 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestAdapter.MyViewHo
             else if(v.getId()==R.id.alert){
                // SQLiteDatabase mydatabase = SQLiteDatabase.openDatabase("Bookmark.db", null, 1);
                 db = new DataBase(v.getContext());
-                ArrayList<String> hl = db.getAllContest();
-                Toast.makeText(v.getContext(),hl.toString(),Toast.LENGTH_LONG).show();
+               // ArrayList<ContestInfo> hl = db.getAllContest();
+               // Toast.makeText(v.getContext(),hl.toString(),Toast.LENGTH_LONG).show();
             }
         }
     }

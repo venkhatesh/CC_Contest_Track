@@ -121,7 +121,7 @@ public class CurrentContest extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             recyclerView = (RecyclerView)getActivity().findViewById(R.id.current_recycler);
-            contestAdapter = new ContestAdapter(contestlist);
+            contestAdapter = new ContestAdapter(contestlist,getActivity());
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(layoutManager);
