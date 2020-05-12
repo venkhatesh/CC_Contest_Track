@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CC_Contest_Track.iml" filepath="$PROJECT_DIR$/CC_Contest_Track.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/CC_Contest_Track-app.iml" filepath="$PROJECT_DIR$/app/CC_Contest_Track-app.iml" group="CC_Contest_Track/app" />
+      <module fileurl="file://$PROJECT_DIR$/GitHubProjects-CC_Contest_Track.iml" filepath="$PROJECT_DIR$/GitHubProjects-CC_Contest_Track.iml" group="CC_Contest_Track" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

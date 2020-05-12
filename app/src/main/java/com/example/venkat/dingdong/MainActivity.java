@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements CurrentContest.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         db = new DataBase(this);
 
         String url = "https://www.codechef.com/contests";

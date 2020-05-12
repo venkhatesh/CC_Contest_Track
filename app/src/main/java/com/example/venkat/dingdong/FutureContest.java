@@ -86,6 +86,7 @@ public class FutureContest extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_future_contest, container, false);
     }
     private class Contest extends AsyncTask<Void,Void,Void> {
