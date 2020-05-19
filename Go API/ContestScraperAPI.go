@@ -79,7 +79,7 @@ func fetchContest(whichContest int) Contests{
 	return allContest
 }
 
-func fetchProfile(userName string) {
+func fetchProfile() {
 	res,err := http.Get("https://www.codechef.com/users/venky_2801")
 	if err != nil{
 		fmt.Println("Something Went Wrong!")
@@ -151,7 +151,6 @@ func HandleRequest(){
 
 }
 func main(){
-	//HandleRequest()
-	fetchProfile("abc")
+	HandleRequest()
 }
 
