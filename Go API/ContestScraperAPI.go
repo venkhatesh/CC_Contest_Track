@@ -144,6 +144,7 @@ func allPastContest(w http.ResponseWriter, r *http.Request){
 }
 
 func HandleRequest(){
+	fmt.Println("Listening")
 	http.HandleFunc("/ongoing",allOngoingContest)
 	http.HandleFunc("/future",allFutureContest)
 	http.HandleFunc("/past",allPastContest)
