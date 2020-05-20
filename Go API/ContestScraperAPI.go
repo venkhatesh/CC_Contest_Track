@@ -147,7 +147,7 @@ func HandleRequest(){
 	http.HandleFunc("/ongoing",allOngoingContest)
 	http.HandleFunc("/future",allFutureContest)
 	http.HandleFunc("/past",allPastContest)
-	log.Fatal(http.ListenAndServe(":8081",nil))
+	log.Fatal(http.ListenAndServe(":80",nil))
 
 }
 func main(){
