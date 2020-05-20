@@ -143,8 +143,16 @@ func allPastContest(w http.ResponseWriter, r *http.Request){
 	json.NewEncoder(w).Encode(pastContestArrayList)
 }
 
+func homePage(w http.ResponseWriter, r *http.Request){
+	fmt.Fprintf(w,"Welcome to Codechef API HomePage \n")
+	fmt.Fprintf(w,"To get list of Ongoing Contest go to /ongoing \n")
+	fmt.Fprintf(w,"To get list of Future Contest go to /future \n")
+	fmt.Fprintf(w,"TO get list of Past Contest go to /past \n")
+}
+
 func HandleRequest(){
 	fmt.Println("Listening")
+	http.HandleFunc("/",homePage)
 	http.HandleFunc("/ongoing",allOngoingContest)
 	http.HandleFunc("/future",allFutureContest)
 	http.HandleFunc("/past",allPastContest)
