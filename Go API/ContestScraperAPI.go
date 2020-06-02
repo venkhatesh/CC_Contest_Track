@@ -28,6 +28,10 @@ type Profile struct {
 
 type Contests []Contest
 
+type JsonContestObject struct{
+	Data []Contest 
+}
+
 func fetchContest(whichContest int) Contests{
 	res, err := http.Get("https://www.codechef.com/contests")
 	if err != nil{
@@ -75,7 +79,9 @@ func fetchContest(whichContest int) Contests{
 			})
 		}
 	})
-
+	fmt.Println(allContest)
+	//randomArray := jsonContestObject{allContest}
+	//fmt.Println(randomArray)
 	return allContest
 }
 
@@ -130,17 +136,38 @@ func fetchProfile() {
 func allOngoingContest(w http.ResponseWriter, r *http.Request){
 	
 	onGoingContestArrayList := fetchContest(0)
-	json.NewEncoder(w).Encode(onGoingContestArrayList)
+	ran := JsonContestObject{onGoingContestArrayList}
+	b,err := json.Marshal(ran)
+	if err != nil{
+	fmt.Println("Random ",b)
+	}else{
+		fmt.Println("Error",string(b))
+	}
+	json.NewEncoder(w).Encode(ran)
 }
 
 func allFutureContest(w http.ResponseWriter, r *http.Request){
 	futureContestArrayList := fetchContest(1)
-	json.NewEncoder(w).Encode(futureContestArrayList)
+	ran := JsonContestObject{futureContestArrayList}
+	b,err := json.Marshal(ran)
+	if err != nil{
+	fmt.Println("Random ",b)
+	}else{
+		fmt.Println("Error",string(b))
+	}
+	json.NewEncoder(w).Encode(ran)
 }
 
 func allPastContest(w http.ResponseWriter, r *http.Request){
 	pastContestArrayList := fetchContest(2)
-	json.NewEncoder(w).Encode(pastContestArrayList)
+	ran := JsonContestObject{pastContestArrayList}
+	b,err := json.Marshal(ran)
+	if err != nil{
+	fmt.Println("Random ",b)
+	}else{
+		fmt.Println("Error",string(b))
+	}
+	json.NewEncoder(w).Encode(ran)
 }
 
 func homePage(w http.ResponseWriter, r *http.Request){
